@@ -165,16 +165,23 @@
         
         
         
-        /* CSS styles */
+        
+        
+        
+        
+        
+        
+        
+        
         .center-image {
             position: relative;
             display: flex;
             justify-content: center;
-            
         }
 
         .center-image img {
-            width: 75%;
+            max-width: 75%;
+            height: auto;
             border-radius: 10px;
             box-shadow: 0px 15px 8px rgba(0, 0, 0, 0.3);
         }
@@ -198,6 +205,47 @@
             top: 50%;
             transform: translateY(-50%);
         }
+
+        /* Media Queries */
+        @media screen and (max-width: 768px) {
+            .center-image {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .center-image img {
+                max-width: 100%;
+            }
+
+            .transparent-box {
+                max-width: 80%;
+            }
+
+            .text-left,
+            .text-right {
+                position: relative;
+                transform: none;
+                margin-top: 20px;
+                left: unset;
+                right: unset;
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
                .close-icon {
             display: none;
