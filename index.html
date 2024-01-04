@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="IMG/logo4.png" type="image/png">
+    <title>NCT construction Inc</title>
+
+    <!-- Début CSS Style -->
+    <style>
+        :root {
+            --prim1: darkgoldenrod;
+        }
+
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            padding-top: 18px;
+            background-color: var(--prim1);
+        }
+
+        /* Fixed Bar Styles */
+        .fixed-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .fixed-bar a {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .fixed-bar a:hover {
+            transform: scale(1.1);
+        }
+
+        .fixed-bar img {
+            max-width: 30px;
+            max-height: 30px;
+            padding-bottom: 6px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 50px;
+            /* Added margin on top of the navbar */
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 20px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 100%;
+            background-color: transparent;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover::after {
+            background-color: rgba(255, 215, 0, 0.7);
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .menu {
+            display: none;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            top: 80px;
+            /* Adjusted the top value */
+            z-index: 1000;
+            /* Added the z-index property */
+
+        }
+
+        .menu li {
+            padding: 10px 0;
+        }
+
+
+        .slider {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .slider img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .arrow:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .arrow.left {
+            left: 10px;
+        }
+
+        .arrow.right {
+            right: 10px;
+        }
+
+        .logo {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .center-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .center-image img {
+            max-width: 75%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 15px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .transparent-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            position: absolute;
+            max-width: 40%;
+            transition: all 0.3s ease;
+        }
+
+        .transparent-box:hover,
+        .transparent-box.in-view {
+            box-shadow: 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+            font-size: 105%;
+        }
+
+        .text-left {
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .text-right {
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 768px) {
+            .center-image {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .center-image img {
+                max-width: 100%;
+            }
+
+            .transparent-box {
+                max-width: 80%;
+            }
+
+            .text-left,
+            .text-right {
+                position: relative;
+                transform: none;
+                margin-top: 20px;
+                left: unset;
+                right: unset;
+            }
+        }
+
+        .close-icon {
+            display: none;
+            cursor: pointer;
+        }
+
+        .close-icon:hover {
+            color: yellow;
+        }
+
+        .bottom-banner {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bottom-banner:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+
+        }
+
+
+
+
+
+        .close-btn {
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: darkgoldenrod;
+        }
+
+
+        .contact-button {
+            background-color: gold;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 0 10px;
+            display: inline-block;
+        }
+
+        .contact-button:hover {
+            background-color: darkgoldenrod;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .tile-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .tile {
+            width: 300px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            margin: 20px;
+            padding: 20px;
+            padding-top: 60px;
+            border-radius: 10px;
+            position: relative;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        }
+
+        .tile:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .tile.in-view {
+            transform: scale(1.05);
+            box-shadow:
+                0 1px 5px rgba(0, 0, 0, 0.25),
+                /* top */
+                1px 0 5px rgba(0, 0, 0, 0.25),
+                /* right */
+                -1px 0 5px rgba(0, 0, 0, 0.25),
+                /* left */
+                0 8px 8px rgba(0, 0, 0, 0.25);
+            /* bottom */
+        }
+
+
+        .badge {
+            position: absolute;
+            top: 20px;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+
+        }
+
+        .badge img {
+            width: 50px;
+            height: 50px;
+
+        }
+
+
+
+        .footer {
+
+            background-image: url('IMG/FOOTER01.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-shadow: 2px 2px 2px #000000;
+            padding: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+
+        .footer-tile {
+            flex: 0 0 23%;
+            margin-bottom: 30px;
+        }
+
+        .footer-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-text a,
+        .footer-text p,
+        .footer-text div {
+            text-decoration: none;
+            color: white;
+            text-shadow: 2px 2px 2px #000000;
+            transition: color 0.3s;
+        }
+
+        .footer-text a:hover,
+        .footer-text p:hover {
+            color: gold;
+        }
+
+        .slide-partner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: white;
+            color: black;
+            overflow-x: auto;
+            /* Add this to enable horizontal scroll on small screens */
+        }
+
+        .partner-img {
+            flex: 0 0 auto;
+            /* Adjust the flex property */
+            height: 100px;
+            /* Adjust the height as needed */
+            transition: filter 0.3s;
+        }
+
+
+        .partner-img img {
+            max-width: 100%;
+            /* Add this to adjust the width automatically */
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .partner-img:hover {
+            filter: brightness(70%);
+            transform: scale(1.05);
+        }
+
+
+
+        /* Gallery styles */
+        .gallery02 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-gap: 10px;
+            padding: 10px;
+            justify-content: center;
+            /* Center horizontally within the grid */
+            align-items: center;
+            /* Center vertically within the grid */
+        }
+
+        .image-wrapper {
+            position: relative;
+            cursor: pointer;
+            text-align: center;
+            /* Center text within the image wrapper */
+        }
+
+        .image-wrapper img {
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.2s;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .image-wrapper:hover .overlay {
+            opacity: 1;
+        }
+
+        /* gallery03 */
+
+        .gallery03 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
+            grid-gap: 10px;
+            padding: 10px;
+            justify-content: center;
+            /* Center horizontally within the grid */
+            align-items: center;
+            /* Center vertically within the grid */
+        }
+
+        .image-wrapper {
+            position: relative;
+            cursor: pointer;
+            text-align: left;
+            /* Align text to the left */
+        }
+
+        .image-wrapper img {
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.2s;
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            /* Position at the bottom */
+            left: 0;
+            /* Position at the left */
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            /* Display text in a column */
+            align-items: flex-start;
+            /* Align text to the left */
+            padding: 10px;
+            /* Add padding to the text */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .image-wrapper:hover .overlay {
+            opacity: 1;
+        }
+
+
+
+
+
+
+        /* GOOGLE MAPS */
+        /* Style for the map container */
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            /* Adjust the max width as needed */
+            height: 340px;
+        }
+
+        /* Animation keyframes */
+        @keyframes mapzoom {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Apply the animation by default */
+        .mapzm {
+            animation: mapzoom 10s infinite;
+        }
+
+        /* Remove the animation on hover */
+        .mapzm:hover {
+            animation: none;
+        }
+
+
+
+
+
+        .scrolling-section05 {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            overflow-x: hidden;
+            /* Prevent horizontal scrollbar */
+        }
+
+        .scrolling-content {
+
+            text-align: center;
+            z-index: 1;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .scrolling-content h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .scrolling-content p {
+            font-size: 18px;
+        }
+
+        .scrolling-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200%;
+            /* Make the image twice as tall to allow for scrolling effect */
+        }
+
+        .scrolling-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: scrollImage 5s linear infinite;
+            /* Adjust the animation duration as needed */
+        }
+
+        @keyframes scrollImage {
+            0% {
+                transform: translateY(0%);
+            }
+
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
+        /* TeamShower Image avec tuile de texte en bas à droite */
+        .team-container06 {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10%;
+            margin: 20px 0;
+            margin-bottom: 12%;
+            /* Adjust the value as needed */
+        }
+
+        .team-member06 {
+            flex: 0 0 calc(25% - 40px);
+            /* Adjust the width and margin */
+            position: relative;
+        }
+
+        .team-member06 img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member06:hover img {
+            transform: scale(1.1);
+            /* Add hover effect */
+        }
+
+        .text-container06 {
+            position: absolute;
+            background-color: lightgray;
+            padding: 10px;
+            width: auto;
+            right: -10%;
+            /* Adjust the value as needed, e.g., -5% for 5% out */
+            bottom: 30%;
+            /* Text container is at the bottom */
+            transform: translateY(100%);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .team-member06:hover .text-container06 {
+            opacity: 1;
+            /* Show text container on hover */
+        }
+
+
+
+
+
+
+        /* Media Query for MOBILE */
+        @media screen and (max-width: 768px) {
+            .gallery03 {
+                grid-template-columns: repeat(auto-fill, minmax(calc(50% - 20px), 1fr));
+            }
+
+            .tile {
+                width: 100%;
+            }
+
+            .team-container06 {
+                flex-direction: column;
+            }
+
+            .team-member06 {
+                flex: 0 0 calc(25% - 40px);
+                /* Adjust the width and margin */
+                position: relative;
+                margin-top: 80px;
+            }
+
+            
+            .gallery02 {
+                /* Align center */
+                grid-template-columns: repeat(auto-fill, minmax(calc(50% - 20px), 1fr));
+            }
+
+            .map-container {
+                max-width: 100%;
+                width: 100%;
+                /* Set the maximum width to 100% for mobile devices */
+                height: 200px;
+                /* Adjust the height as needed for mobile layout */
+            }
+
+        }
+    </style>
+    <!-- Fin CSS Style -->
+
+
+</head>
+
+<body>
+    <!-- LogoNCT pour Preview -->
+    <div style="display:none;"> <img src="IMG/logo4.png" alt="logo"></div>
+
+    <!-- Barre affichage fixer top écran  -->
+    <div class="fixed-bar">
+        <a href="tel:8194303212">
+            <img src="IMG/HEAD01.png" alt="IMG02">
+            <span>819-430-3212 </span>
+        </a>
+        <a href="#">
+            <img src="IMG/HEAD02.png" alt="IMG02">
+            <span>Lun-Ven: 8h-17h</span>
+        </a>
+        <a href="#">
+            <img src="IMG/HEAD03.png" alt="IMG02">
+            <span>Laurentides</span>
+        </a>
+    </div>
+
+    <!-- Barre de navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="IMG/logo.png" alt="Logo" />
+        </div>
+        <a href="#"></a>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <div class="close-icon" onclick="toggleMenu()">&#10006;</div>
+        <ul class="menu" id="menu">
+            <li><a href="index.html">&nbsp;-&nbsp;&nbsp;ACCUEIL</a></li>
+            <li><a href="construction.html">&nbsp;-&nbsp;&nbsp;CONSTRUCTION</a></li>
+            <li><a href="equipe.html">&nbsp;-&nbsp;&nbsp;ÉQUIPE</a></li>
+            <li><a href="about.html">&nbsp;-&nbsp;&nbsp;À PROPOS</a></li>
+            <li><a href="carriere.html">&nbsp;-&nbsp;&nbsp;CARRIÈRE</a></li>
+            <li><a href="contact.html">&nbsp;-&nbsp;&nbsp;CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Slider d'image avec hover, fit 100% largueur -->
+    <div class="slide-partner">
+        <a href="PARTNER_WEBSITE_1" class="partner-img"><img src="IMG/BANNER01.png" alt="Partner 1"></a>
+        <a href="PARTNER_WEBSITE_2" class="partner-img"><img src="IMG/BANNER02.png" alt="Partner 2"></a>
+        <a href="PARTNER_WEBSITE_3" class="partner-img"><img src="IMG/BANNER03.png" alt="Partner 3"></a>
+        <a href="PARTNER_WEBSITE_4" class="partner-img"><img src="IMG/BANNER04.png" alt="Partner 4"></a>
+    </div>
+
+    <!-- Slider animer avec timer et flèche -->
+    <div class="slider">
+        <a href="#" class="arrow left" onclick="prevImage()">⭀</a>
+        <a href="#" class="arrow right" onclick="nextImage()">⥱</a>
+        <img src="IMG/IMG01.jpeg" alt="IMG01" id="currentImage">
+    </div>
+
+    <!-- Bloc Image + Texte Gauche -->
+    <div class="center-image">
+        <img src="IMG/MAN02.png" alt="IMG02">
+        <div class="transparent-box transparent-box.in-view text-left">
+            <p>NCT Construction vous guide tout au long de votre projet, de l'idée initiale à sa réalisation. Que vous
+                envisagiez la construction sur mesure d'une demeure prestigieuse, l'amélioration écoénergétique de votre
+                logement ou simplement une rénovation, comptez sur notre savoir-faire et des matériaux de qualité pour
+                atteindre une satisfaction totale.</p>
+        </div>
+        <br>
+    </div>
+
+   <br><br>
+    <!-- Bloc Image + Texte Droite -->
+    <div class="center-image">
+        <img src="IMG/MAN01.png" alt="IMG03">
+        <div class="transparent-box transparent-box.in-view text-right">
+            <p>Nous sommes toujours disponibles pour répondre à vos questions, prendre en compte vos commentaires et
+                vous fournir l'assistance nécessaire. Que vous ayez besoin de conseils, de clarifications ou de tout
+                autre type d'assistance, nous nous engageons à être présents pour vous à chaque étape du processus.
+                Votre satisfaction est notre priorité, et nous sommes là pour vous offrir l'accompagnement et le soutien
+                dont vous avez besoin.</p>
+        </div>
+    </div>
+
+    <!-- Bloc ResponsiveTile -->
+    <div class="tile-container">
+        <div class="tile tile.in-view">
+            <h3>EXCELLENCE</h3>
+            <p>Notre objectif est de livrer un travail d’une qualité exceptionnelle qui plaira à nos clients haut de
+                gamme avec un niveau d’exigence élevé.</p>
+            <div class="badge">
+                <img src="IMG/BADGE01.png" alt="Badge 1">
+            </div>
+        </div>
+        <div class="tile tile.in-view">
+            <h3>GARANTIE GCR</h3>
+            <p>Profitez d’un maximum de protection avec la Garantie de Construction Résidentielle sur 5 ans qui
+                s’applique aux maisons neuves.</p>
+            <div class="badge">
+                <img src="IMG/BADGE02.png" alt="Badge 2">
+            </div>
+        </div>
+        <div class="tile tile.in-view">
+            <h3>FACILITÉ DE PAIEMENT</h3>
+            <p>Nous travaillons en collaboration avec plusieurs partenaires dans l'objectif de faciliter l’accès au
+                financement.</p>
+            <div class="badge">
+                <img src="IMG/BADGE03.png" alt="Badge 3">
+            </div>
+        </div>
+        <div class="tile tile.in-view">
+            <h3>MAISON PERSONNALISÉE</h3>
+            <p>La personnalisation est notre force. Réalisons ensemble votre projet de construction d’une maison neuve à
+                votre image.</p>
+            <div class="badge">
+                <img src="IMG/BADGE04.png" alt="Badge 4">
+            </div>
+        </div>
+        <div class="tile tile.in-view">
+            <h3>DEPUIS 2021</h3>
+            <p>Avec notre équipe pluridisciplinaire dans le domaine de la construction neuve haut de gamme, NCT
+                construction est votre partenaire de choix.</p>
+            <div class="badge">
+                <img src="IMG/BADGE05.png" alt="Badge 5">
+            </div>
+        </div>
+
+        <div class="tile tile.in-view">
+            <h3>ÉCOÉNERGÉTIQUE & ÉCOLOGIQUE</h3>
+            <p>Nous mettons à votre service notre expertise en Science du bâtiment durable : maximisez l'efficacité
+                énergétique et le confort de votre projet, tout en réduisant les besoins en maintenance du futur
+                bâtiment, dès la conception.</p>
+            <div class="badge">
+                <img src="IMG/BADGE07.png" alt="Badge 7">
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer avec background image -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-tile">
+                <div class="footer-title">NCT construction</div>
+                <div class="footer-text">Découvrez une équipe d’experts, soucieux de votre bien-être. Nous nous
+                    spécialisons dans la construction de maisons neuves personnalisées. La qualité et le haut de gamme
+                    ne riment pas forcément avec un prix exorbitant, découvrez nos projets.</div>
+                <br><br>
+            </div>
+            <div class="footer-tile">
+                <div class="footer-title">LIENS RAPIDES</div>
+                <div class="footer-text">
+                    <ul style="list-style: none;">
+                        <li><a href="#">ACCUEIL</a></li>
+                        <li><a href="construction.html">CONSTRUCTION</a></li>
+                        <li><a href="equipe.html">ÉQUIPE</a></li>
+                        <li><a href="about.html">À PROPOS</a></li>
+                        <li><a href="carriere.html">CARRIÈRE</a></li>
+                        <li><a href="contact.html">CONTACT</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-tile">
+                <div class="footer-title">HEURES D’OUVERTURE</div>
+                <div class="footer-text">
+                    <p>Lundi au vendredi : 8h à 17h sur rendez-vous</p>
+                    <p>Samedi et dimanche: Fermé</p>
+                </div>
+            </div>
+            <div class="footer-tile">
+                <div class="footer-title">COORDONNÉES</div>
+                <div class="footer-text">
+                    <p>Région des laurentides, Quebec, Canada</p>
+                    <p>819-430-3212</p>
+                    <p>RBQ 5811-8134-01</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bannière Pub (supprimable) + fixer à l'écran -->
+    <div class="bottom-banner">
+        <span class="close-btn" onclick="closeBanner()">X</span>
+        <p>Envoyer une demande de soumission.</p>
+        <a href="contact.html" class="contact-button">Cliquez Ici</a>
+    </div>
+
+
+
+
+    <!-- Début JS Script -->
+    <script>
+
+
+        // JavaScript for the MENU
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            var closeIcon = document.querySelector('.close-icon');
+            if (menu.style.display === "none" || menu.style.display === "") {
+                menu.style.display = "block";
+                closeIcon.style.display = "block";
+            } else {
+                menu.style.display = "none";
+                closeIcon.style.display = "none";
+            }
+        }
+        window.addEventListener('click', function (e) {
+            var menu = document.getElementById("menu");
+            var closeIcon = document.querySelector('.close-icon');
+            if (!menu.contains(e.target) && e.target !== document.querySelector('.menu-icon')) {
+                menu.style.display = "none";
+                closeIcon.style.display = "none";
+            }
+        });
+
+
+        // JavaScript for the SLIDER
+        const images = ["IMG/IMG01.jpeg", "IMG/logo3.png"]; // Add all your image paths here
+        let currentIndex = 0;
+        const imgElement = document.getElementById("currentImage");
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            imgElement.src = images[currentIndex];
+        }
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            imgElement.src = images[currentIndex];
+        }
+
+        setInterval(() => {
+            nextImage(); // Auto switch to next image after 3 seconds
+        }, 3000);
+        function closeBanner() {
+            var banner = document.querySelector('.bottom-banner');
+            banner.style.display = 'none';
+        }
+        // Existing code
+        let observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, {
+            rootMargin: '-25% 0px -25% 0px',
+            threshold: 0
+        });
+        // Observe .transparent-box elements
+        document.querySelectorAll('.transparent-box').forEach(box => {
+            observer.observe(box);
+        });
+        // Observe .tile elements
+        document.querySelectorAll('.tile').forEach(tile => {
+            observer.observe(tile);
+        });
+
+
+        // JavaScript for gallery02
+        const imageFolder = 'IMG/Collection01/';
+        const imageFiles = ['IMG03.png', 'IMG04.png', 'IMG05.png', 'IMG06.png', 'IMG080.png', 'IMG081.png'];
+        const galleryContainer = document.querySelector('.gallery02');
+        const modal = document.querySelector('.modal02');
+        const modalContent = document.querySelector('.modal-content02');
+        const overlay = document.querySelector('.overlay02');
+        imageFiles.forEach((filename, index) => {
+            const imageWrapper = document.createElement('div');
+            imageWrapper.classList.add('image-wrapper');
+            const img = document.createElement('img');
+            img.alt = `Image ${index + 1}`;
+            img.setAttribute('data-src', `${imageFolder}${filename}`);
+            img.classList.add('lazy-load');
+            imageWrapper.appendChild(img);
+            const overlayDiv = document.createElement('div');
+            overlayDiv.classList.add('overlay');
+            overlayDiv.innerHTML = filename.split('.')[0]; // Extract and display the filename without extension
+            imageWrapper.appendChild(overlayDiv);
+            imageWrapper.addEventListener('click', () => openModal(`${imageFolder}${filename}`));
+            galleryContainer.appendChild(imageWrapper);
+        });
+        // Intersection Observer to load images when they come into the viewport
+        const lazyImages = document.querySelectorAll('.lazy-load');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1,
+        };
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.getAttribute('data-src');
+                    img.classList.remove('lazy-load');
+                    observer.unobserve(img);
+                }
+            });
+        }, observerOptions);
+        lazyImages.forEach(img => imageObserver.observe(img));
+
+
+        // JavaScript for gallery03
+        const imageFolderGallery03 = 'IMG/Collection02/';
+        const imageFilesGallery03 = [
+            'IMG01.png',
+            'IMG02.png',
+            'IMG03.png',
+            'IMG04.png',
+            'IMG05.png',
+            'IMG06.png',
+            'IMG07.png',
+            'IMG08.png'
+        ];
+        const galleryContainer03 = document.querySelector('.gallery03');
+        const customTexts1 = [
+            "Maison 4 chambres 1 salle de bain",
+            "Appartement à louer"
+        ];
+        const customTexts2 = [
+            "Maison 2 chambres 2 salle de bain",
+            "Maison 3 chambres"
+        ];
+        const customTexts3 = [
+            "Custom Text 3 Line 1",
+            "Custom Text 3 Line 2"
+        ];
+        // Define more customTexts arrays as needed
+        imageFilesGallery03.forEach((filename, index) => {
+            const imageWrapper = document.createElement('div');
+            imageWrapper.classList.add('image-wrapper');
+            const img = document.createElement('img');
+            img.alt = `Image ${index + 1}`;
+            img.setAttribute('data-src', `${imageFolderGallery03}${filename}`);
+            img.classList.add('lazy-load');
+            imageWrapper.appendChild(img);
+            const overlayDiv = document.createElement('div');
+            overlayDiv.classList.add('overlay');
+            // Check if custom text is defined before adding it
+            if (customTexts1[index] && customTexts2[index]) {
+                overlayDiv.innerHTML = `
+      <p>${customTexts1[index]}</p>
+      <p>${customTexts2[index]}</p>
+    `;
+            }
+            imageWrapper.appendChild(overlayDiv);
+            imageWrapper.addEventListener('click', () => openModal(`${imageFolderGallery03}${filename}`));
+            galleryContainer03.appendChild(imageWrapper);
+        });
+        // Intersection Observer to load images when they come into the viewport
+        const lazyImagesGallery03 = document.querySelectorAll('.gallery03 .lazy-load');
+        lazyImagesGallery03.forEach(img => imageObserver.observe(img));
+
+
+
+        // JavaScript for the TEAMVIEWER
+        const teamMembers = document.querySelectorAll('.team-member06');
+
+        teamMembers.forEach(member => {
+            member.addEventListener('mouseenter', () => {
+                member.querySelector('.text-container06').style.opacity = 1;
+            });
+
+            member.addEventListener('mouseleave', () => {
+                if (!member.classList.contains('active')) {
+                    member.querySelector('.text-container06').style.opacity = 0;
+                }
+            });
+
+            member.addEventListener('click', () => {
+                teamMembers.forEach(otherMember => {
+                    if (otherMember !== member) {
+                        otherMember.classList.remove('active');
+                        otherMember.querySelector('.text-container06').style.opacity = 0;
+                    }
+                });
+
+                member.classList.toggle('active');
+                member.querySelector('.text-container06').style.opacity = 1;
+            });
+        });
+
+
+
+
+    </script>
+    <!-- Fin JS Script -->
+
+
+
+</body>
+
+</html>
